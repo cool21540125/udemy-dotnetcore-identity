@@ -1,13 +1,5 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using udemy.Authorization;
 
 namespace WebApp_UnderTheHood
 {
@@ -40,9 +32,13 @@ namespace WebApp_UnderTheHood
 
                 options.AddPolicy("HrManagerOnly", policy => policy
                     .RequireClaim("Department", "HR")
-                    .RequireClaim("Manager"));
+                    .RequireClaim("Manager")
+                    .Requirements.Add(new HrManagerProbationRequirement(5))
+                    );
 
             });
+
+            services.AddSingleton<IAuthorizationHandler, HrManagerProbationRequirementHandler>();
 
             services.AddRazorPages();
         }
