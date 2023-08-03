@@ -8,9 +8,14 @@
   <ItemGroup>
     <None Remove="Pages\Account\" />
     <None Remove="Authorization\" />
+    <None Remove="DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Account\" />
     <Folder Include="Authorization\" />
+    <Folder Include="DTO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 </Project>

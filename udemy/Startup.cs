@@ -35,7 +35,7 @@ namespace WebApp_UnderTheHood
                 options.AddPolicy("HrManagerOnly", policy => policy
                     .RequireClaim("Department", "HR")
                     .RequireClaim("Manager")
-                    .Requirements.Add(new HrManagerProbationRequirement(5))
+                    .Requirements.Add(new HrManagerProbationRequirement(3))
                     );
 
             });
@@ -43,6 +43,11 @@ namespace WebApp_UnderTheHood
             services.AddSingleton<IAuthorizationHandler, HrManagerProbationRequirementHandler>();
 
             services.AddRazorPages();
+
+            services.AddHttpClient("OurWebAPI", client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:64062/");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
